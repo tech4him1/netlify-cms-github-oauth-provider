@@ -1,5 +1,7 @@
 # Netlify-cms-github-oauth-provider
 
+[![Remix on Glitch](https://cdn.glitch.com/2703baf2-b643-4da7-ab91-7ee2a2d00b5b%2Fremix-button.svg)](https://glitch.com/edit/#!/import/github/vencax/netlify-cms-github-oauth-provider?OAUTH_CLIENT_ID=f432a9casdff1e4b79c57&OAUTH_CLIENT_SECRET=pampadympapampadympapampadympa&REDIRECT_URL=https://your.server.com/callback)
+
 ***External authentication providers were enabled in netlify-cms version 0.4.3. Check your web console to see your netlify-cms version.***
 
 [netlify-cms](https://www.netlifycms.org/) has its own github OAuth client. This implementation was created by reverse engineering the results of that client, so it's not necessary to reimplement client part of [netlify-cms](https://www.netlifycms.org/).

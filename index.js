@@ -38,6 +38,7 @@ app.get('/callback', (req, res) => {
   }
 
   oauth2.authorizationCode.getToken(options, (error, result) => {
+    const provider = process.env.OAUTH_PROVIDER || 'github'
     let mess, content
 
     if (error) {
@@ -49,7 +50,7 @@ app.get('/callback', (req, res) => {
       mess = 'success'
       content = {
         token: token.token.access_token,
-        provider: 'github'
+        provider: provider
       }
     }
 
@@ -60,14 +61,14 @@ app.get('/callback', (req, res) => {
         console.log("recieveMessage %o", e)
         // send message to main window with da app
         window.opener.postMessage(
-          'authorization:github:${mess}:${JSON.stringify(content)}',
+          'authorization:${provider}:${mess}:${JSON.stringify(content)}',
           e.origin
         )
       }
       window.addEventListener("message", recieveMessage, false)
       // Start handshare with parent
-      console.log("Sending message: %o", "github")
-      window.opener.postMessage("authorizing:github", "*")
+      console.log("Sending message: %o", "${provider}")
+      window.opener.postMessage("authorizing:${provider}", "*")
       })()
     </script>`
     return res.send(script)
@@ -79,7 +80,7 @@ app.get('/success', (req, res) => {
 })
 
 app.get('/', (req, res) => {
-  res.send('Hello<br><a href="/auth">Log in with Github</a>')
+  res.send(`Hello<br><a href="/auth">Log in with ${process.env.OAUTH_PROVIDER}</a>`)
 })
 
 app.listen(port, () => {

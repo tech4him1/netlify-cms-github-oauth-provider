@@ -35,6 +35,9 @@ OAUTH_CLIENT_ID=f432a9casdff1e4b79c57
 OAUTH_CLIENT_SECRET=pampadympapampadympapampadympa
 REDIRECT_URL=https://your.server.com/callback
 GIT_HOSTNAME=https://github.website.com
+OAUTH_TOKEN_PATH=/login/oauth/access_token
+OAUTH_AUTHORIZE_PATH=/login/oauth/authorize
+OAUTH_PROVIDER=github
 ```
 
 **Client ID & Client Secret:**
@@ -44,7 +47,13 @@ After registering your Oauth app, you will be able to get your client id and cli
 Include this if you  need your callback to be different from what is supplied in your Oauth app configuration.
 
 **Git Hostname (Optional):**
-This is only necessary for use with Github Enterprise.
+This is only necessary for use with Github Enterprise, or a different Oauth provider like GitLab.
+
+**Token and Authorize Paths (Optional):**
+These may need to be set to the correct paths when using a different Oauth provider (e.g. GitLab).
+
+**Provider (Optional):**
+If you are using an OAuth provider other than GitHub or GitHub Enterprise, you will need to set this to provider name (e.g. `gitlab`, `github`, `bitbucket`) so that the CMS can recgonize it. This is normally the same as the backend name in your CMS config.
 
 ### CMS Config
 You also need to add `base_url` to the backend section of your netlify-cms's config file. `base_url` is the live URL of this repo with no trailing slashes.
@@ -55,6 +64,7 @@ backend:
   repo: user/repo   # Path to your Github repository
   branch: master    # Branch to update
   base_url: https://your.server.com # Path to ext auth provider
+  api_root: https://github.website.com # (optional) Git server, should match the GIT_HOSTNAME above.
 ```
 
 ## 3) Push
